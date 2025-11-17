@@ -213,7 +213,8 @@ def admin():
         class_file = f"{selected_class}.csv"
         if os.path.exists(class_file) and os.path.getsize(class_file) > 0:
             df = pd.read_csv(class_file)
-            df.insert(0, "STT", range(1, len(df)+1))
+            if "STT" not in df.columns:
+                df.insert(0, "STT", range(1, len(df)+1))
         else:
             df = pd.DataFrame()
             html_summaries = None
